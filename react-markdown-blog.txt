@@ -1,0 +1,42 @@
+Install npm:
+
+This package will install:
+	•	Node.js v14.17.6 to /usr/local/bin/node
+	•	npm v6.14.15 to /usr/local/bin/npm
+
+This package has installed:
+	•	Node.js v14.17.6 to /usr/local/bin/node
+	•	npm v6.14.15 to /usr/local/bin/npm
+Make sure that /usr/local/bin is in your $PATH.
+
+---
+
+
+ReactJS Tutorial for Beginners - Getting Started with React
+https://www.youtube.com/watch?v=pgAvVxowaYU
+React Crash Course for Beginners 2021 - Learn ReactJS from Scratch in this 100% Free Tutorial!
+https://www.youtube.com/watch?v=Dorf8i6lCuk
+
+Complete React Tutorial (& Redux ) #1- Introduction
+https://www.youtube.com/watch?v=OxIDLw0M-m0&list=PL4cUxeGkcC9ij8CfkAY2RAGb-tmkNwQHG
+
+https://reactjs.org/docs/create-a-new-react-app.html
+
+
+Click the Create React App link: https://github.com/facebook/create-react-app
+
+Set up a modern web app by running one command: https://create-react-app.dev/
+
+Click Get Started: https://create-react-app.dev/docs/getting-started
+
+Check if you have npm installed:
+$ npm -v
+6.14.15
+
+$ npm install -g create-react-app
+
+$ npx create-react-app restblog
+
+Create a virtual environment:
+
+$ virtualenv env
