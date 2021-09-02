@@ -49,6 +49,8 @@ Make sure that /usr/local/bin is in your $PATH.
 
 
 
+--- Section 1 - Intro
+
 ReactJS Tutorial for Beginners - Getting Started with React
 https://www.youtube.com/watch?v=pgAvVxowaYU
 React Crash Course for Beginners 2021 - Learn ReactJS from Scratch in this 100% Free Tutorial!
