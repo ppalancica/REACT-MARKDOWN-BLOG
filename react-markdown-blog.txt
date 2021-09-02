@@ -124,3 +124,6 @@ $ npm run start
 (should be able to see a default page at http://localhost:3000/)
 
 Open src/App.js
+
+
+Create a frontend/src/components folder and a BlogList.js file inside it:
