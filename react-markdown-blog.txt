@@ -59,7 +59,6 @@ https://www.youtube.com/watch?v=OxIDLw0M-m0&list=PL4cUxeGkcC9ij8CfkAY2RAGb-tmkNw
 
 https://reactjs.org/docs/create-a-new-react-app.html
 
-
 Click the Create React App link: https://github.com/facebook/create-react-app
 
 Set up a modern web app by running one command: https://create-react-app.dev/
@@ -123,7 +122,184 @@ $ npm run start
 
 (should be able to see a default page at http://localhost:3000/)
 
-Open src/App.js
+Open src/App.js and change it to:
 
+//import React from "react";
+import './App.css';
+import BlogList from "./components/BlogList";
+
+function App() {
+  return (
+    <BlogList/>
+  );
+}
+
+export default App;
 
 Create a frontend/src/components folder and a BlogList.js file inside it:
+
+import React, { useEffect, useState } from "react";
+
+const BlogList = () => {
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    setLoading(true);
+    fetch('http://127.0.0.1:8000/api/blog/posts/')
+      .then(res => res.json())
+      .then(data => {
+        console.log(data);
+        setData(data);
+        setLoading(false);
+      })
+      .catch(err => {
+        setError(err.message);
+        setLoading(false);
+      })
+  }, [])
+
+  return (
+    <div style={{ margin: 10, padding: 10 }}>
+      <h1>Post List</h1>
+      {error && (
+        <h4 style={{ padding: 5, color: "red" }}>An error occured: {error}</h4>
+      )}
+      {loading ? <div>Loading...</div> : (
+        <div>
+          {data && (
+            <div>There is data</div>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
+
+export default BlogList
+
+Create a Django app:
+
+$ python manage.py startapp blog
+
+Add 'blog' entry to settings.py
+
+Add to models.py:
+
+from django.db import models
+
+class Post(models.Model):
+    title = models.CharField(max_length=100)
+    content = models.TextField()
+
+    def __str__(self):
+        return self.title
+
+Add to admin.py:
+
+from django.contrib import admin
+from .models import Post
+
+# Register your models here.
+
+admin.site.register(Post)
+
+$ python manage.py makemigrations
+
+$ python manage.py migrate
+
+$ python manage.py runserver
+
+Create a serializers.py file inside backend/blog:
+
+from rest_framework import serializers
+from .models import Post
+
+class PostSerializer(serializers.Serializer):
+    title = serializers.CharField()
+    content = serializers.CharField()
+
+Add to backend/blog/views.py:
+
+from rest_framework import generics
+from rest_framework.permissions import AllowAny
+from .models import Post
+from .serializers import PostSerializer
+
+class PostListView(generics.ListAPIView):
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
+    permission_classes = [AllowAny]
+
+Create a urls.py file inside backend/blog:
+
+from django.urls import path
+
+from . import views
+
+app_name = 'blog'
+
+urlpatterns = [
+    path('posts/', views.PostListView.as_view())
+]
+
+Add a new path entry to backend/apiblog/urls.py:
+
+path('api/blog/', include('blog.urls', namespace='blog'))
+
+Got to https://pypi.org/project/django-cors-headers/
+
+$ pip install django-cors-headers
+
+Add 'corsheaders' entry to INSTALLED_APPS in settings.py
+
+Add 'corsheaders.middleware.CorsMiddleware' entry to MIDDLEWARE:
+(above 'django.middleware.common.CommonMiddleware',)
+
+Also add:
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+]
+
+(env) $ python manage.py runserver
+
+Open http://127.0.0.1:8000/api/blog/posts/ and we should see an empty list response.
+
+(env) $ python manage.py createsuperuser
+
+---
+(env) ppalancica@Pavels-MacBook-Pro backend % python manage.py createsuperuser
+Username (leave blank to use 'ppalancica'): ppalancica
+Email address: pavel@site.com
+Password:
+Password (again):
+Superuser created successfully.
+---
+
+$ python manage.py runserver
+
+Login at http://127.0.0.1:8000/admin, click on Posts and add a "test" post with title and content.
+
+If we open http://127.0.0.1:8000/api/blog/posts/ we should see that post returned by the API.
+
+Now we want to render that data.
+
+Inside BlogList.js replace:
+
+{data && (
+  <div>There is data</div>
+)}
+
+with:
+
+{data && data.map(post => {
+    return (
+      <div>
+        <h3>{post.title}</h3>
+        <p>{post.content}</p>
+      </div>
+    )
+  })
+}
