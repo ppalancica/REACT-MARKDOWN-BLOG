@@ -1,8 +1,44 @@
-Install npm:
+kill -9 PID
 
-This package will install:
-	•	Node.js v14.17.6 to /usr/local/bin/node
-	•	npm v6.14.15 to /usr/local/bin/npm
+https://medium.com/@firstsquares/eacces-error-react-create-react-app-mac-6db837c8dd52
+// https://docs.npmjs.com/resolving-eacces-permissions-errors-when-installing-packages-globally
+
+https://stackoverflow.com/questions/11177954/how-do-i-completely-uninstall-node-js-and-reinstall-from-beginning-mac-os-x
+https://docs.npmjs.com/cli/v7/using-npm/removal
+
+Copy and paste the command from https://github.com/nvm-sh/nvm#installing-and-updating:
+
+$ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
+
+=> Close and reopen your terminal to start using nvm or run the following to use it now:
+
+$ export NVM_DIR="$HOME/.nvm"
+$ [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+
+Verify installation (should see nvm):
+
+$ command -v nvm
+
+Install Node.JS LTS:
+
+$ nvm install --lts
+
+Check the installed versions:
+
+$ node -v
+v14.17.6
+$ npm -v
+6.14.15
+
+
+
+---
+
+https://github.blog/2020-12-15-token-authentication-requirements-for-git-operations/
+https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token
+
+(Note that installing with the wizard could create EACCES errors)
+https://stackoverflow.com/questions/53455753/ubuntu-create-react-app-fails-with-permission-denied
 
 This package has installed:
 	•	Node.js v14.17.6 to /usr/local/bin/node
@@ -10,6 +46,7 @@ This package has installed:
 Make sure that /usr/local/bin is in your $PATH.
 
 ---
+
 
 
 ReactJS Tutorial for Beginners - Getting Started with React
@@ -40,3 +77,50 @@ $ npx create-react-app restblog
 Create a virtual environment:
 
 $ virtualenv env
+
+$ source env/bin/activate
+
+$ pip install django
+
+$ django-admin startproject apiblog
+
+Rename root folder from apiblog to backend.
+
+$ cd backend/
+
+$ python manage.py migrate
+
+$ python manage.py runserver
+
+Go to https://www.django-rest-framework.org/
+Click on Installation.
+
+Copy and paste (stop the serverm but make sure env is activated):
+$ pip install djangorestframework
+
+Add Django Rest Framework to settings:
+
+INSTALLED_APPS = [
+    ...
+    'rest_framework',
+]
+
+Add the following to your root urls.py file:
+
+from django.contrib import admin
+from django.urls import path, include
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('api-auth/', include('rest_framework.urls'))
+]
+
+Rename restblog to frontend.
+
+$ cd frontend/
+
+$ npm run start
+
+(should be able to see a default page at http://localhost:3000/)
+
+Open src/App.js
