@@ -1,3 +1,17 @@
+Course:
+https://learn.justdjango.com/courses/react-markdown-blog/learning-react
+
+JustDjango repositories:
+https://github.com/justdjango/rest-markdown-blog-ui
+https://github.com/justdjango/rest-markdown-blog-api
+
+My repositories:
+https://github.com/ppalancica/REACT-MARKDOWN-BLOG (Project 1)
+https://github.com/ppalancica/REACT-MARKDOWN-BLOG-api (Project 2a)
+https://github.com/ppalancica/REACT-MARKDOWN-BLOG-ui (Project 2b)
+
+
+
 kill -9 PID
 
 https://medium.com/@firstsquares/eacces-error-react-create-react-app-mac-6db837c8dd52
